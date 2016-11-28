@@ -8,8 +8,8 @@ namespace GameDrinker.Tools
         uint DrinksToTake { get; set; }
         uint DrinksToGive { get; set; }
 
-        GDEnums.GDModes PreviousMode { get; set; }
-        GDEnums.GDModes CurrentMode { get; set; }
+        GDModes PreviousMode { get; set; }
+        GDModes CurrentMode { get; set; }
 
         void Init(T Mode);
         void ChangeMode(T Mode);

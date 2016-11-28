@@ -12,6 +12,7 @@ namespace GameDrinker.Decks
 
         public List<GDCard> DeckPile = new List<GDCard>();
         public List<GDCard> DiscardPile = new List<GDCard>();
+        public List<GDCard> CardsInTotal = new List<GDCard>();
 
         public CardPool pool;
 
@@ -19,9 +20,11 @@ namespace GameDrinker.Decks
         /// Deck Initializer
         /// Sets 13 Card on 4 Suits
         /// </summary>
-        protected virtual void Init()
+        public void Init()
         {
-            foreach (GDEnums.SUITS j in Enum.GetValues(typeof(GDEnums.SUITS)))
+            int id = 1;
+
+            foreach (SUITS j in Enum.GetValues(typeof(SUITS)))
             {
                 for (int i = 1; i <= 13; ++i)
                 {
@@ -32,16 +35,38 @@ namespace GameDrinker.Decks
                         pool.CardsToPool[(i * j.GetHashCode()) - 1] = obj;
                         newCard.prefab = obj;
                     }
+                    newCard.ID = id;
                     DeckPile.Add(newCard);
+                    id++;
                 }
             }
+            if(CardsInTotal != null)
+                CardsInTotal = DeckPile;
+        }
+
+        public void Reset()
+        {
+            DeckPile = null;
+            DiscardPile = null;
+            for(int i = 0; i < CardsInTotal.Count; i++)
+            {
+                CardsInTotal[i].IsOnUse = false;
+            }
+            DeckPile = CardsInTotal;
+
         }
 
         protected virtual void Awake()
         {
-            Init();
+        }
+
+        void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.A))
+            {
+                Reset();
+                Debug.Log("Reset");
+            }
         }
     }
-
-
 }

@@ -1,12 +1,11 @@
-# GiveOrTake
-Card Drinking Game: Give or Take
+# DrinkerGame
+Card Drinking Games:
+-GiveOrTake
+-Pyramid
+-F***TheDealer
+-KingsCup
 
-# UNITY 2D Game
-Unity 2D Game for Cogswell Engineering Society Unity Workshop
+# UNITY 3D Android Game
 
 by Jorge Moreno
-<<<<<<< HEAD
-# github.com/joouur/GiveOrTake
-=======
-CheckoutCheck
->>>>>>> develop
+# github.com/joouur/DrinkerGame

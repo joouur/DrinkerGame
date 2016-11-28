@@ -38,11 +38,11 @@ namespace GameDrinker
         }
 
         [SerializeField]
-        private GDEnums.STATUS _status;
+        private STATUS _status;
         /// <summary>
         /// Accessor for User Status
         /// </summary>
-        public GDEnums.STATUS Status
+        public STATUS Status
         {
             get { return _status; }
             set { _status = value; } 

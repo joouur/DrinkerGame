@@ -4,14 +4,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GameDrinker;
+using GameDrinker.Decks;
 using GameDrinker.Tools;
 
 namespace GameDrinker.Managers
 {
-    public abstract class GDBaseGameManager : MonoBehaviour, IMode<GDEnums.GDModes>
+    [RequireComponent(typeof(GDDeck))]
+    public abstract class GDBaseModManager : MonoBehaviour, IMode<GDModes>
     {
-        static private GDBaseGameManager instance;
-        static public GDBaseGameManager Instance
+        static private GDBaseModManager instance;
+        static public GDBaseModManager Instance
         { get { return instance; } }
 
         #region Data
@@ -20,33 +22,33 @@ namespace GameDrinker.Managers
         /// Interface Variables
         /// </summary>
         protected uint ToTake;
-        uint IMode<GDEnums.GDModes>.DrinksToTake
+        uint IMode<GDModes>.DrinksToTake
         {
             get { return ToTake; }
             set { ToTake = value; }
         }
         protected uint ToGive;
-        uint IMode<GDEnums.GDModes>.DrinksToGive
+        uint IMode<GDModes>.DrinksToGive
         {
             get { return ToGive; }
             set { ToGive = value; }
         }
 
-        protected GDEnums.GDModes prevMod;
-        public GDEnums.GDModes PreviousMode
+        protected GDModes prevMod;
+        public GDModes PreviousMode
         {
             get { return prevMod; }
             set { prevMod = value; }
         }
-        protected GDEnums.GDModes currMod;
-        public GDEnums.GDModes CurrentMode
+        protected GDModes currMod;
+        public GDModes CurrentMode
         {
             get { return currMod; }
             set { currMod = value; }
         }
 
         public List<User> users = new List<User>();
-
+        public GDDeck CurrentDeck;
         #endregion
 
         #region Class Methods
@@ -54,25 +56,27 @@ namespace GameDrinker.Managers
         {
             if (instance != null)
             {
-                Debug.LogWarning("Game Manager is already in play. Deleting old, instantiating new!", gameObject);
-                Destroy(GDBaseGameManager.Instance.gameObject);
+                Debug.LogWarning("Game Manager is already in play. Deleting old, instantiating new!", this.gameObject);
+                Destroy(GDBaseModManager.Instance.gameObject);
                 instance = null;
             }
             else
             { instance = this; }
+            CurrentDeck = GetComponent<GDDeck>();
+            CurrentDeck.Init();
         }
 
         protected virtual void UserInitializer()
         {
             User[] u = FindObjectsOfType(typeof(User)) as User[];
-            if(u.Length > Enum.GetNames(typeof(GDEnums.COLORS)).Length)
+            if(u.Length > Enum.GetNames(typeof(COLORS)).Length)
             {
                 throw new Exception("There exist more Users than what is permited within the Game, naming extra users as Numbers");
             }
 
             for (int i = 0; i < u.Length; ++i)
             {
-                GDEnums.COLORS randomColor = (GDEnums.COLORS)Enum.ToObject(typeof(GDEnums.COLORS), i);
+                COLORS randomColor = (COLORS)Enum.ToObject(typeof(COLORS), i);
                 u[i].name = u[i].Name = randomColor.ToString();
                 users.Add(u[i]);
             }            
@@ -117,31 +121,31 @@ namespace GameDrinker.Managers
         #endregion
 
         #region Interface Methods
-        public void Init(GDEnums.GDModes Mode)
+        public void Init(GDModes Mode)
         {
             currMod = Mode;
 
-            if (Mode == GDEnums.GDModes.DEFAULT)
+            if (Mode == GDModes.DEFAULT)
             { throw new Exception(gameObject.name + " is trying to Instantiate a GameMode that does not exist!"); }
-            else if (Mode == GDEnums.GDModes.FUCK_THE_DEALER)
+            else if (Mode == GDModes.FUCK_THE_DEALER)
             {
                 EventSystemManager.StartListening("FUCK_THE_DEALER", OnGameStartFD);
                 EventSystemManager.TriggerEvent("FUCK_THE_DEALER");
                 return;
             }
-            else if (Mode == GDEnums.GDModes.GIVE_OR_TAKE)
+            else if (Mode == GDModes.GIVE_OR_TAKE)
             {
                 EventSystemManager.StartListening("GIVE_OR_TAKE", OnGameStartGOT);
                 EventSystemManager.TriggerEvent("GIVE_OR_TAKE");
                 return;
             }
-            else if (Mode == GDEnums.GDModes.KINGS_CUP)
+            else if (Mode == GDModes.KINGS_CUP)
             {
                 EventSystemManager.StartListening("KINGS_CUP", OnGameStartKP);
                 EventSystemManager.TriggerEvent("KINGS_CUP");
                 return;
             }
-            else if (Mode == GDEnums.GDModes.PIRAMID)
+            else if (Mode == GDModes.PIRAMID)
             {
                 EventSystemManager.StartListening("PIRAMID", OnGameStartP);
                 EventSystemManager.TriggerEvent("PIRAMID");
@@ -154,39 +158,39 @@ namespace GameDrinker.Managers
             }
         }
 
-        void IMode<GDEnums.GDModes>.ChangeMode(GDEnums.GDModes Mode)
+        void IMode<GDModes>.ChangeMode(GDModes Mode)
         {
             prevMod = currMod;
-            if (CurrentMode == GDEnums.GDModes.FUCK_THE_DEALER)
+            if (CurrentMode == GDModes.FUCK_THE_DEALER)
             {
                 EventSystemManager.StopListening("FUCK_THE_DEALER", OnGameStartFD);
             }
-            else if (CurrentMode == GDEnums.GDModes.GIVE_OR_TAKE)
+            else if (CurrentMode == GDModes.GIVE_OR_TAKE)
             {
                 EventSystemManager.StopListening("GIVE_OR_TAKE", OnGameStartGOT);
             }
-            else if (CurrentMode == GDEnums.GDModes.KINGS_CUP)
+            else if (CurrentMode == GDModes.KINGS_CUP)
             {
                 EventSystemManager.StopListening("KINGS_CUP", OnGameStartKP);
             }
-            else if (CurrentMode == GDEnums.GDModes.PIRAMID)
+            else if (CurrentMode == GDModes.PIRAMID)
             {
                 EventSystemManager.StopListening("PIRAMID", OnGameStartP);
             }
             Init(Mode);
         }
 
-        void IMode<GDEnums.GDModes>.PlayTurns()
+        void IMode<GDModes>.PlayTurns()
         {
             throw new NotImplementedException();
         }
 
-        void IMode<GDEnums.GDModes>.TimeTurns()
+        void IMode<GDModes>.TimeTurns()
         {
             throw new NotImplementedException();
         }
 
-        void IMode<GDEnums.GDModes>.TakeDrink(User user)
+        void IMode<GDModes>.TakeDrink(User user)
         {
             for(int i = 0; i < users.Count; i++)
             {
@@ -197,12 +201,12 @@ namespace GameDrinker.Managers
             }
         }
 
-        void IMode<GDEnums.GDModes>.GiveDrink(User user)
+        void IMode<GDModes>.GiveDrink(User user)
         {
             throw new NotImplementedException();
         }
 
-        void IMode<GDEnums.GDModes>.AlreadyDrank(User user)
+        void IMode<GDModes>.AlreadyDrank(User user)
         {
             throw new NotImplementedException();
         }
