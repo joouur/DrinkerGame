@@ -1,15 +1,24 @@
 ﻿using UnityEngine;
-using System.Collections;
+using GameDrinker;
 
 namespace GameDrinker.Tools
 {
     public interface IMode<T>
     {
+        uint DrinksToTake { get; set; }
+        uint DrinksToGive { get; set; }
+
+        GDEnums.GDModes PreviousMode { get; set; }
+        GDEnums.GDModes CurrentMode { get; set; }
+
         void Init(T Mode);
+        void ChangeMode(T Mode);
+
         void PlayTurns();
         void TimeTurns();
-        void Drink();
-        void GiveDrink();
+        void TakeDrink(User user);
+        void GiveDrink(User user);
+        void AlreadyDrank(User user);
     }
 
     public interface ICard

@@ -27,6 +27,16 @@ namespace GameDrinker
             set { _name = value; }
         }
 
+        private int iD;
+        /// <summary>
+        /// Accessor for User Name
+        /// </summary>
+        public int ID
+        {
+            get { return iD; }
+            set { iD = value; }
+        }
+
         [SerializeField]
         private GDEnums.STATUS _status;
         /// <summary>

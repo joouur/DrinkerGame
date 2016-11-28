@@ -3,14 +3,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using GameDrinker.Tools;
+using GameDrinker.Tools.ObjectPooler;
 
 namespace GameDrinker.Decks 
 {
-    public abstract class GDDeck<T> : MonoBehaviour where T : Component
+    public class GDDeck : MonoBehaviour
     {
 
         public List<GDCard> DeckPile = new List<GDCard>();
         public List<GDCard> DiscardPile = new List<GDCard>();
+
+        public CardPool pool;
 
         /// <summary>
         /// Deck Initializer
@@ -24,7 +27,11 @@ namespace GameDrinker.Decks
                 {
                     GameObject obj = Resources.Load("Cards/" + j.ToString() + i) as GameObject;
                     GDCard newCard = new GDCard(i.ToString(), j);
-                    newCard.prefab = obj;
+                    if (obj != null)
+                    {
+                        pool.CardsToPool[(i * j.GetHashCode()) - 1] = obj;
+                        newCard.prefab = obj;
+                    }
                     DeckPile.Add(newCard);
                 }
             }
