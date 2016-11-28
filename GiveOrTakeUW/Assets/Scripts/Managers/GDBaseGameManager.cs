@@ -26,7 +26,7 @@ namespace GameDrinker.Managers
             { instance = this; }
         }
 
-        void Start()
+        protected virtual void UserInitializer()
         {
             User[] u = FindObjectsOfType(typeof(User)) as User[];
             if(u.Length > Enum.GetNames(typeof(GDEnums.COLORS)).Length)
@@ -40,8 +40,12 @@ namespace GameDrinker.Managers
                 u[i].name = u[i].Name = randomColor.ToString();
 
             }
-            
             users = u;
+        }
+
+        protected virtual void UserReset()
+        {
+            users = null;
         }
     }
 }
