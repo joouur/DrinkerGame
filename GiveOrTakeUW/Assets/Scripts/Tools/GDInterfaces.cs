@@ -16,27 +16,17 @@ namespace GameDrinker.Tools
 
         void PlayTurns();
         void TimeTurns();
+        void NextUser();
         void TakeDrink(User user);
         void GiveDrink(User user);
         void AlreadyDrank(User user);
     }
 
-    public interface ICard
+    public interface IGame<T>
     {         
+        int Round { get; set; }
+        void Game(int round);
+        void StartGame(GAMESTATUS status);
     }
-    public class GDInterfaces : MonoBehaviour
-    {
 
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-    }
 }

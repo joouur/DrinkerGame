@@ -6,7 +6,7 @@ namespace GameDrinker.Tools
     /// <summary>
     /// Public Enums For Game
     /// </summary>
-    public enum STATUS
+    public enum USERSTATUS
     {
         DEFAULT,
         SOBER,
@@ -14,6 +14,15 @@ namespace GameDrinker.Tools
         TIPSY,
         DRUNK,
         KO
+    }
+
+    public enum GAMESTATUS
+    {
+        BEFOREGAMESTART,
+        INPROGRESS,
+        PAUSED,
+        GAMEOVER, 
+        TRANSITIONOFGAME
     }
 
     public enum SUITS

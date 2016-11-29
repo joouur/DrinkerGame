@@ -23,6 +23,7 @@ namespace GameDrinker.Decks
         public void Init()
         {
             int id = 1;
+            pool = GetComponentInChildren<CardPool>();
 
             foreach (SUITS j in Enum.GetValues(typeof(SUITS)))
             {
@@ -36,6 +37,7 @@ namespace GameDrinker.Decks
                         newCard.prefab = obj;
                     }
                     newCard.ID = id;
+                    newCard.CardColor = 0;
                     DeckPile.Add(newCard);
                     id++;
                 }
@@ -67,6 +69,10 @@ namespace GameDrinker.Decks
                 Reset();
                 Debug.Log("Reset");
             }
+        }
+
+        protected void OnEnable()
+        {
         }
     }
 }

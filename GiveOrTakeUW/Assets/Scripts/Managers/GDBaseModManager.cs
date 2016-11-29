@@ -10,7 +10,7 @@ using GameDrinker.Tools;
 namespace GameDrinker.Managers
 {
     [RequireComponent(typeof(GDDeck))]
-    public abstract class GDBaseModManager : MonoBehaviour, IMode<GDModes>
+    public abstract class GDBaseModManager : MonoBehaviour, IMode<GDModes>, IGame<Enum>
     {
         static private GDBaseModManager instance;
         static public GDBaseModManager Instance
@@ -46,6 +46,8 @@ namespace GameDrinker.Managers
             get { return currMod; }
             set { currMod = value; }
         }
+
+        public abstract int Round { get; set; }
 
         public List<User> users = new List<User>();
         public GDDeck CurrentDeck;
@@ -102,25 +104,25 @@ namespace GameDrinker.Managers
         private void OnGameStartGOT()
         {
             Debug.Log("GOT");
-
             throw new NotImplementedException();
         }
         private void OnGameStartKP()
         {
             Debug.Log("KP");
-
             throw new NotImplementedException();
         }
         private void OnGameStartP()
         {
             Debug.Log("P");
-
             throw new NotImplementedException();
         }
 
+        //public virtual void StartGame();
         #endregion
 
         #region Interface Methods
+        // IMode Interface to be determine within base Class
+
         public void Init(GDModes Mode)
         {
             currMod = Mode;
@@ -207,6 +209,22 @@ namespace GameDrinker.Managers
         }
 
         void IMode<GDModes>.AlreadyDrank(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IMode<GDModes>.NextUser()
+        {
+            throw new NotImplementedException();
+        }
+        // IGame Interface To be Overrided within the Inherited Class
+
+
+        public abstract void Game(int round);
+
+        internal abstract void StartGame(GAMESTATUS status);
+
+        void IGame<Enum>.StartGame(GAMESTATUS status)
         {
             throw new NotImplementedException();
         }
