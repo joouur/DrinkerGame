@@ -57,7 +57,7 @@ namespace GameDrinker.Tools.ObjectPooler
             // Parent Object
             newObj.transform.parent = waitingPool.transform;
             // Set Name Count
-            newObj.name = "GDDeck_" + (GDEnums.GDModes)Enum.ToObject(typeof(GDEnums.GDModes), i + 1);
+            newObj.name = "GDDeck_" + (GDModes)Enum.ToObject(typeof(GDModes), i + 1);
 
             // Add obj to the pool
             pooledObjects.Add(newObj);

@@ -8,6 +8,7 @@ namespace GameDrinker.Decks
     /// <summary>
     /// Card Class
     /// </summary>
+    [RequireComponent(typeof(GDDeck))]
     [System.Serializable]
     public class GDCard
     {
@@ -30,30 +31,47 @@ namespace GameDrinker.Decks
         }
 
         [SerializeField]
-        private GDEnums.SUITS suit;
-        public GDEnums.SUITS Suit
+        private int power;
+        public int Power
+        {
+            get { return power; }
+            set { power = value; }
+        }
+
+        [SerializeField]
+        private SUITS suit;
+        public SUITS Suit
         {
             get { return suit; }
             set { suit = value; }
         }
 
+        [SerializeField]
         private bool isOnUse;
         public bool IsOnUse
         {
             get { return isOnUse; }
             set { isOnUse = value; }
         }
+
         [SerializeField]
-        private GDEnums.GDCARDCOLOR cardColor;
-        public GDEnums.GDCARDCOLOR CardColor
+        private int id;
+        public int ID
+        {
+            get { return id; }
+            set { id = value; }
+        }
+        [SerializeField]
+        private GDCARDCOLOR cardColor;
+        public GDCARDCOLOR CardColor
         {
             get { return cardColor; }
             set
             {
-                if (suit == GDEnums.SUITS.CLUBS || suit == GDEnums.SUITS.SPADES)
-                { cardColor = GDEnums.GDCARDCOLOR.BLACK; }
-                else if (suit == GDEnums.SUITS.HEARTS || suit == GDEnums.SUITS.DIAMONDS)
-                { cardColor = GDEnums.GDCARDCOLOR.RED; }
+                if (suit == SUITS.CLUBS || suit == SUITS.SPADES)
+                { cardColor = GDCARDCOLOR.BLACK; }
+                else if (suit == SUITS.HEARTS || suit == SUITS.DIAMONDS)
+                { cardColor = GDCARDCOLOR.RED; }
             }
         }
 
@@ -62,14 +80,20 @@ namespace GameDrinker.Decks
         GDCard()
         {
             Rank = "0";
-            Suit = GDEnums.SUITS.SPADES;
+            Suit = SUITS.SPADES;
         }
 
-        public GDCard(string n, GDEnums.SUITS s)
+        public GDCard(string n, SUITS s)
         {
             Rank = n;
             Suit = s;
         }
 
+        public GDCard(string n, SUITS s, int p)
+        {
+            Rank = n;
+            Suit = s;
+            Power = p;
+        }
     }
 }

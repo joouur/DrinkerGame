@@ -6,6 +6,15 @@ namespace GameDrinker.Tools
     public static class GDMath
     {
         /// <summary>
+        /// Return a random number between 0 and 52
+        /// </summary>
+        /// <returns></returns>
+        public static int RandomCard()
+        {
+            return UnityEngine.Random.Range(0, 52);
+        }
+
+        /// <summary>
         /// Changes Vector3 passed with random x,y,z values
         /// </summary>
         /// <param name="low"></param>

@@ -1,42 +1,33 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+
+using UnityEngine;
 using GameDrinker;
 
 namespace GameDrinker.Tools
 {
-    public interface IMode<T>
-    {
-        uint DrinksToTake { get; set; }
-        uint DrinksToGive { get; set; }
-
-        GDEnums.GDModes PreviousMode { get; set; }
-        GDEnums.GDModes CurrentMode { get; set; }
-
-        void Init(T Mode);
-        void ChangeMode(T Mode);
-
-        void PlayTurns();
-        void TimeTurns();
-        void TakeDrink(User user);
-        void GiveDrink(User user);
-        void AlreadyDrank(User user);
-    }
-
-    public interface ICard
+    public interface IGame
     {         
+        void Game(List<User> users);
+        void StartGame();
+        bool EndGame();
+
+        void PlayTurns(User user);
     }
-    public class GDInterfaces : MonoBehaviour
+
+    public interface IRules
     {
 
-        // Use this for initialization
-        void Start()
-        {
+        int Drinks { get; }
 
-        }
+        bool Rule();
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        bool GameType();
+        bool DrinkingType();
+        
+        void Display();
+        
+        void GiveTheDrink(User user);
+        void TakeTheDrink();
+        void RandomUser(List<User> users);
     }
 }
