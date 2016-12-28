@@ -1,8 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+
+using UnityEngine;
 using GameDrinker;
 
 namespace GameDrinker.Tools
 {
+<<<<<<< HEAD
     public interface IMode<T>
     {
         uint DrinksToTake { get; set; }
@@ -29,4 +32,31 @@ namespace GameDrinker.Tools
         void StartGame(GAMESTATUS status);
     }
 
+=======
+    public interface IGame
+    {         
+        void Game(List<User> users);
+        void StartGame();
+        bool EndGame();
+
+        void PlayTurns(User user);
+    }
+
+    public interface IRules
+    {
+
+        int Drinks { get; }
+
+        bool Rule();
+
+        bool GameType();
+        bool DrinkingType();
+        
+        void Display();
+        
+        void GiveTheDrink(User user);
+        void TakeTheDrink();
+        void RandomUser(List<User> users);
+    }
+>>>>>>> feature/Changes
 }

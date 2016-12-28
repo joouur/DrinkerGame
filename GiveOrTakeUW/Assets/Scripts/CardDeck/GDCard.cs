@@ -31,6 +31,17 @@ namespace GameDrinker.Decks
         }
 
         [SerializeField]
+<<<<<<< HEAD
+=======
+        private int power;
+        public int Power
+        {
+            get { return power; }
+            set { power = value; }
+        }
+
+        [SerializeField]
+>>>>>>> feature/Changes
         private SUITS suit;
         public SUITS Suit
         {
@@ -46,6 +57,7 @@ namespace GameDrinker.Decks
             set { isOnUse = value; }
         }
 
+<<<<<<< HEAD
         [SerializeField]
         private int id;
         public int ID
@@ -54,6 +66,16 @@ namespace GameDrinker.Decks
             set { id = value; }
         }
         [SerializeField]
+=======
+        [SerializeField]
+        private int id;
+        public int ID
+        {
+            get { return id; }
+            set { id = value; }
+        }
+        [SerializeField]
+>>>>>>> feature/Changes
         private GDCARDCOLOR cardColor;
         public GDCARDCOLOR CardColor
         {
@@ -81,5 +103,11 @@ namespace GameDrinker.Decks
             Suit = s;
         }
 
+        public GDCard(string n, SUITS s, int p)
+        {
+            Rank = n;
+            Suit = s;
+            Power = p;
+        }
     }
 }
