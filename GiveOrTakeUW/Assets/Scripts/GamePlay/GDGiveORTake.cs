@@ -177,7 +177,7 @@ namespace GameDrinker.Gameplay
                 }
                 // TODO: Think method to extract the Methods of gameplay for delegating the User who is playing to the buttons
                 GTButtons[0].onClick.AddListener(delegate { TheD(); });
-                        
+
                 EventSystemManager.TriggerEvent("OnGiveOrTake");
             }
 
@@ -222,6 +222,13 @@ namespace GameDrinker.Gameplay
         private bool InBetween(int min, int max, int check)
         {
             return (check >= min && check <= max);
+        }
+
+        public void ChangeUser(User user)
+        {
+            GTButtons[0].onClick.RemoveAllListeners();
+            GTButtons[0].onClick.AddListener(delegate { BlackOrRed(false, user); });
+
         }
         #endregion
 
