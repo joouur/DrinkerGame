@@ -30,7 +30,7 @@ namespace GameDrinker.Gameplay
         /// <param name="choice">choice == Black, !choice == Red</param>
         /// <param name="user"></param>
         /// <returns></returns>
-        protected virtual bool BlackOrRed(bool choice, User user)
+        public virtual bool BlackOrRed(bool choice, User user)
         {
             user.Cards.Add(GDManager.Instance.CurrentDeck.getNewCard(52));
             if ((choice && (user.Cards[0].CardColor == GDCARDCOLOR.BLACK))

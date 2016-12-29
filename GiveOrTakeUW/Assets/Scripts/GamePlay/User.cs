@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using GameDrinker.Tools;
@@ -10,9 +11,13 @@ namespace GameDrinker
     /// User base Class
     /// Stores information needed in all Games
     /// </summary>
+    [RequireComponent(typeof(Rect))]
     [System.Serializable]
     public class User : MonoBehaviour
     {
+        #region Data
+
+        #region User Main Data
         [Space(10)]
         [Header("User Information")]
 
@@ -90,8 +95,17 @@ namespace GameDrinker
         public List<GDCard> Cards = new List<GDCard>();
 
         protected bool AI;
+        #endregion
 
-        protected virtual void Start()
+        #region Canvas Data
+        private Text T_DrinksToGive;
+        private Text T_DrinksToTake;
+
+        private Rect CardsPanel;
+
+        #endregion
+        #endregion
+        protected virtual void OnAddPlayer()
         {
             
         }

@@ -10,16 +10,16 @@ namespace GameDrinker.Gameplay
     public class GDGamePlay : MonoBehaviour
     {
 
-        GameDrinkerDecorator Game; // = new GDGiveORTake();
+        GDGiveORTake Game; // = new GDGiveORTake();
         
         protected virtual void Awake()
         {
             Game = new GDGiveORTake();
-            Game.StartGame();
+            //Game.StartGame();
         }
 
         #region Canvas Functions
-        /*
+        
         public void Choices(bool choice, int index)
         {
            
@@ -36,7 +36,7 @@ namespace GameDrinker.Gameplay
             int k = (int)Char.GetNumericValue(s[1]);
             Game.BlackOrRed(ch, GDManager.Instance.users[k]); 
         }
-        */
+        
         #endregion
 
     }
