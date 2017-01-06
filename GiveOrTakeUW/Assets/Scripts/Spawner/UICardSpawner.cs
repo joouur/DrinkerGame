@@ -75,7 +75,6 @@ namespace GameDrinker.Tools.Spawn
                 { nextObj.GetComponent<PoolableObj>().TriggerOnSpawnComplete(); }
             }
 
-            Debug.Log("Spawn");
             return (nextObj);
         }
     }
