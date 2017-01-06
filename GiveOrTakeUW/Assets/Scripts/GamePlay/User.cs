@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using GameDrinker.Tools;
 using GameDrinker.Decks;
 using GameDrinker.GentleUI;
+using GameDrinker.Tools.ObjectPooler;
+using GameDrinker.Tools.Spawner;
 
 namespace GameDrinker
 {
@@ -14,7 +17,7 @@ namespace GameDrinker
     /// </summary>
     [RequireComponent(typeof(Rect))]
     [System.Serializable]
-    public class User : MonoBehaviour
+    public class User : Spawner
     {
         #region Data
 
@@ -106,9 +109,17 @@ namespace GameDrinker
         public Text T_DrinksToTake;
 
         public GameObject CardsPanel;
-        public Tools.ObjectPooler.SinglePooling CardPrefab;
+        #endregion
+
+        #region SpawnProtected
+        protected Transform lastSpawnTransform;
         #endregion
         #endregion
+        protected override void Awake()
+        {
+            base.Awake();
+            objPool = GetComponent<ObjectPool>();
+        }
 
         public void Init()
         {
@@ -131,12 +142,20 @@ namespace GameDrinker
 
         public void AddCards(GDCard card)
         {
-            
-            CardPrefab.GetComponent<CardUIBehaviour>().ChangeSprite(card.FrontSprite);
-        }
+            GameObject spawnObj = Spawn(Vector3.zero, false);
 
-        public void Awake()
-        {
+            if (spawnObj == null)
+            { return; }
+
+            if (spawnObj.GetComponent<PoolableObj>() == null)
+            {
+                throw new Exception(gameObject.name + " is trying to spawn object that don't have PoolableObj Component!");
+            }
+
+            if (lastSpawnTransform != null)
+            {
+               
+            }
         }
 
         protected virtual void OnAddPlayer()

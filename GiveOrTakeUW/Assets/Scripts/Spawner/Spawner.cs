@@ -6,7 +6,7 @@ using GameDrinker.Tools.ObjectPooler;
 
 namespace GameDrinker.Tools.Spawner
 {
-    [RequireComponent(typeof(ObjectPool))]
+    //[RequireComponent(typeof(ObjectPool))]
     public class Spawner : MonoBehaviour
     {
        [Header("Size")]
@@ -26,12 +26,12 @@ namespace GameDrinker.Tools.Spawner
         public bool onlywhenGameInProgress = true;
         public float initDelay = 0f;
 
-        protected ObjectPool objPool;
+        public ObjectPool objPool;
         protected float startTime;
 
         protected virtual void Awake()
         {
-            objPool = GetComponent<ObjectPool>();
+            //objPool = GetComponent<ObjectPool>();
             startTime = Time.time;
         }
 
