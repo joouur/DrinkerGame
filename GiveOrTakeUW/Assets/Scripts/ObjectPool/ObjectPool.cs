@@ -25,7 +25,7 @@ namespace GameDrinker.Tools.ObjectPooler
         /// Start, Fill the pool with objects
         /// </summary>
         protected virtual void Start()
-        { FillObjectPool(); }
+        { /*FillObjectPool();*/ }
 
         /// <summary>
         /// Implement on Multiple or Simple Pool

@@ -7,6 +7,7 @@ using UnityEngine;
 using GameDrinker;
 using GameDrinker.Decks;
 using GameDrinker.Tools;
+using GameDrinker.GentleUI;
 
 namespace GameDrinker.Managers
 {
@@ -23,6 +24,9 @@ namespace GameDrinker.Managers
 
         public List<User> users = new List<User>();
         public GDDeck CurrentDeck;
+
+        public delegate void OnGDStart();
+        public static event OnGDStart OnGameDrinkerStart;
         #endregion
 
         #region Class Methods
@@ -39,6 +43,13 @@ namespace GameDrinker.Managers
             CurrentDeck = GetComponent<GDDeck>();
             CurrentDeck.Init();
             UserInitializer();
+
+            EventSystemManager.StartListening("OnGameStart", OnGameStart);
+        }
+
+        private void OnGameStart()
+        {
+            OnGameDrinkerStart();
         }
 
         protected virtual void UserInitializer()
@@ -53,6 +64,8 @@ namespace GameDrinker.Managers
             {
                 COLORS randomColor = (COLORS)Enum.ToObject(typeof(COLORS), i);
                 u[i].name = u[i].Name = randomColor.ToString();
+                u[i].ID = i;
+                u[i].Init();
                 users.Add(u[i]);
             }
         }
@@ -68,5 +81,12 @@ namespace GameDrinker.Managers
         }
         #endregion
 
+        public void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.T))
+            {
+                EventSystemManager.TriggerEvent("OnGameStart");
+            }
+        }
     }
 }

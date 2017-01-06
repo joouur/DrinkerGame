@@ -22,6 +22,8 @@ namespace GameDrinker.Decks
             int id = 1;
             pool = GetComponentInChildren<CardPool>();
 
+            Sprite[] sprites = Resources.LoadAll<Sprite>("Textures/card_list");
+
             foreach (SUITS j in Enum.GetValues(typeof(SUITS)))
             {
                 for (int i = 1; i <= 13; ++i)
@@ -30,15 +32,17 @@ namespace GameDrinker.Decks
                     GDCard newCard = new GDCard(i.ToString(), j, i);
                     if (obj != null)
                     {
-                        pool.CardsToPool[(i * j.GetHashCode()) - 1] = obj;
+                        pool.CardsToPool[id - 1] = obj;
                         newCard.prefab = obj;
                     }
+                    newCard.FrontSprite = sprites[id - 1];
                     newCard.ID = id;
                     newCard.CardColor = 0;
                     DeckPile.Add(newCard);
                     id++;
                 }
             }
+            pool.FillPool();
 
         }
 

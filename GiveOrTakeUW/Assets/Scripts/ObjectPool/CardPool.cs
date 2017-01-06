@@ -14,8 +14,8 @@ namespace GameDrinker.Tools.ObjectPooler
     {
         // Array of Objects to instantiate
         public GameObject[] CardsToPool = new GameObject[52];
-
-        // Number of objects that can be added to the pool
+       
+         // Number of objects that can be added to the pool
         public int poolSize = 52;
 
         // If true, the Pool will automatically add another object to itself
@@ -39,6 +39,13 @@ namespace GameDrinker.Tools.ObjectPooler
             { AddOneObjectToPool(obj); }
         }
 
+        /// <summary>
+        /// Fills pool with gameObject type
+        /// </summary>
+        public void FillPool()
+        {
+            FillObjectPool();
+        }
         /// <summary>
         /// Adds on object of any type to the pool
         /// </summary>

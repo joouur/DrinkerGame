@@ -76,6 +76,7 @@ namespace GameDrinker.Decks
         }
 
         public GameObject prefab;
+        public Sprite FrontSprite;
 
         GDCard()
         {

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GameDrinker.Tools;
 using GameDrinker.Decks;
+using GameDrinker.GentleUI;
 
 namespace GameDrinker
 {
@@ -20,6 +21,16 @@ namespace GameDrinker
         #region User Main Data
         [Space(10)]
         [Header("User Information")]
+        [SerializeField]
+        private int iD;
+        /// <summary>
+        /// Accessor for User Name
+        /// </summary>
+        public int ID
+        {
+            get { return iD; }
+            set { iD = value; }
+        }
 
         [SerializeField]
         private string _name = "Default";
@@ -30,16 +41,6 @@ namespace GameDrinker
         {
             get { return _name; }
             set { _name = value; }
-        }
-
-        private int iD;
-        /// <summary>
-        /// Accessor for User Name
-        /// </summary>
-        public int ID
-        {
-            get { return iD; }
-            set { iD = value; }
         }
 
         [SerializeField]
@@ -56,22 +57,22 @@ namespace GameDrinker
         [Space(10)]
         [Header("Game Information")]
         [SerializeField]
-        private uint drinksToTake;
+        private int drinksToTake = 0;
         /// <summary>
         /// Accessor for User Amount of drinks to Take
         /// </summary>
-        public uint DrinksToTake
+        public int DrinksToTake
         {
             get { return drinksToTake; }
             set { drinksToTake = value; }
         }
 
         [SerializeField]
-        private uint drinksToGive;
+        private int drinksToGive = 0;
         /// <summary>
         /// Accessor for User Amount of drinks to Give
         /// </summary>
-        public uint DrinksToGive
+        public int DrinksToGive
         {
             get { return drinksToGive; }
             set { drinksToGive = value; }
@@ -98,13 +99,46 @@ namespace GameDrinker
         #endregion
 
         #region Canvas Data
-        private Text T_DrinksToGive;
-        private Text T_DrinksToTake;
+        [Space(10)]
+        [Header("Canvas Data")]
+        public Text T_Name;
+        public Text T_DrinksToGive;
+        public Text T_DrinksToTake;
 
-        private Rect CardsPanel;
-
+        public GameObject CardsPanel;
+        public Tools.ObjectPooler.SinglePooling CardPrefab;
         #endregion
         #endregion
+
+        public void Init()
+        {
+            T_Name.text = Name;
+            T_DrinksToGive.text = DrinksToGive.ToString();
+            T_DrinksToTake.text = DrinksToTake.ToString();
+        }
+
+        public void UpdateDrinksToGive(int drinks)
+        {
+            DrinksToGive = drinks;
+            T_DrinksToGive.text = DrinksToGive.ToString();
+        }
+
+        public void UpdateDrinksToTake(int drinks)
+        {
+            DrinksToTake = drinks;
+            T_DrinksToTake.text = DrinksToTake.ToString();
+        }
+
+        public void AddCards(GDCard card)
+        {
+            
+            CardPrefab.GetComponent<CardUIBehaviour>().ChangeSprite(card.FrontSprite);
+        }
+
+        public void Awake()
+        {
+        }
+
         protected virtual void OnAddPlayer()
         {
             
