@@ -45,7 +45,8 @@ namespace GameDrinker.Tools
         BROWN,
         GRAY,
         WHITE,
-        BLACK
+        BLACK,
+        CYAN
     }
 
     public enum GDCARDCOLOR
