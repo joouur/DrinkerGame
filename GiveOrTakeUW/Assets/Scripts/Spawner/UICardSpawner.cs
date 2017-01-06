@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameDrinker.Managers;
 using GameDrinker.Tools.ObjectPooler;
+using GameDrinker.GentleUI;
+using GameDrinker.Decks;
 
 namespace GameDrinker.Tools.Spawn
 {
@@ -14,9 +16,18 @@ namespace GameDrinker.Tools.Spawn
         [Header("PositionID")]
         public int Position;
 
-        public virtual void CheckForCard()
+        public virtual void CheckForCard(GDCard card)
         {
-           // GameObject spawnObj = Spawn(Rect.zero);
+            GameObject spawnObj = Spawn(Rect.zero);
+
+            if (spawnObj == null)
+            { return; }
+            if (spawnObj.GetComponent<PoolableObj>() == null)
+            { throw new Exception(gameObject.name + " is trying to spawn object that don't have PoolableObj Component!"); }
+            if (spawnObj.GetComponent<CardUIBehaviour>() == null)
+            { throw new Exception(gameObject.name + " is trying to spawn object that don't have PoolableObj Component!"); }
+
+            spawnObj.GetComponent<CardUIBehaviour>().ChangeSprite(card.FrontSprite);
         }
 
         protected virtual GameObject Spawn(Rect pos, bool triggerActivation = true)

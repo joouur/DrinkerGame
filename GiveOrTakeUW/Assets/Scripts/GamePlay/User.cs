@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using GameDrinker.Tools;
+using GameDrinker.Tools.Spawn;
 using GameDrinker.Decks;
 using GameDrinker.GentleUI;
 
@@ -133,11 +134,16 @@ namespace GameDrinker
             T_DrinksToTake.text = DrinksToTake.ToString();
         }
 
-        public void AddCards(GDCard card)
+        public void AddCard()
         {
-           
+            GDDeck deck = FindObjectOfType<GDDeck>();
+            GDCard newCard = deck.getNewCard(52);
+
+            UICardSpawner s = gameObject.GetComponent<UICardSpawner>();
+            s.CheckForCard(newCard);
+            Cards.Add(newCard);
         }
 
-        
+       
     }
 }
