@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameDrinker.Managers;
@@ -6,36 +7,19 @@ using GameDrinker.Tools.ObjectPooler;
 
 namespace GameDrinker.Tools.Spawn
 {
-    //[RequireComponent(typeof(ObjectPool))]
-    public class Spawner : MonoBehaviour
+    public class UICardSpawner : Spawner
     {
-        [Header("Size")]
-        public Vector3 minSize = new Vector3(1, 1, 1);
-        public Vector3 maxSize = new Vector3(1, 1, 1);
 
-        public bool perserveRatio = false;
+        [Space(10)]
+        [Header("PositionID")]
+        public int Position;
 
-        [Space(5)]
-        [Header("Rotations")]
-        public Vector3 minRotation;
-        public Vector3 maxRotation;
-
-        [Space(5)]
-        [Header("Spawn")]
-        public bool spawning = true;
-        public bool onlywhenGameInProgress = true;
-        public float initDelay = 0f;
-
-        public ObjectPool objPool;
-        protected float startTime;
-
-        protected virtual void Awake()
+        public virtual void CheckForCard()
         {
-            objPool = GetComponent<ObjectPool>();
-            startTime = Time.time;
+           // GameObject spawnObj = Spawn(Rect.zero);
         }
 
-        protected virtual GameObject Spawn(Vector3 pos, bool triggerActivation = true)
+        protected virtual GameObject Spawn(Rect pos, bool triggerActivation = true)
         {
             if (onlywhenGameInProgress)
             { if (GDManager.Instance.Status != GAMESTATUS.INPROGRESS) { return null; } }
@@ -45,7 +29,7 @@ namespace GameDrinker.Tools.Spawn
 
             GameObject nextObj = objPool.GetPooledGameObj();
 
-            if(nextObj == null)
+            if (nextObj == null)
             { return null; }
 
             Vector3 newScale;
@@ -59,20 +43,28 @@ namespace GameDrinker.Tools.Spawn
             else
             { newScale = Vector3.one * UnityEngine.Random.Range(minSize.x, maxSize.x); }
 
-            nextObj.transform.position = pos;
+            nextObj.transform.localScale = newScale;
+
+            if (nextObj.GetComponent<PoolableObj>() == null)
+            {
+                throw new Exception(gameObject.name + " is trying to spawn objects that do not have poolableObj component.");
+            }
+
+            nextObj.GetComponent<RectTransform>().localPosition = new Vector3(pos.position.x, pos.position.y, 0);
 
             nextObj.transform.eulerAngles = new Vector3(UnityEngine.Random.Range(minRotation.x, maxRotation.x),
-                                        UnityEngine.Random.Range(minRotation.y, maxRotation.y),
-                                        UnityEngine.Random.Range(minRotation.z, maxRotation.z));
+                            UnityEngine.Random.Range(minRotation.y, maxRotation.y),
+                            UnityEngine.Random.Range(minRotation.z, maxRotation.z));
 
             nextObj.gameObject.SetActive(true);
 
-            if(triggerActivation)
+            if (triggerActivation)
             {
-                if(nextObj.GetComponent<PoolableObj>() != null)
+                if (nextObj.GetComponent<PoolableObj>() != null)
                 { nextObj.GetComponent<PoolableObj>().TriggerOnSpawnComplete(); }
             }
 
+            Debug.Log("Spawn");
             return (nextObj);
         }
     }
