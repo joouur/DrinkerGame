@@ -26,10 +26,12 @@ namespace GameDrinker.Managers
         public GDDeck CurrentDeck;
 
         public GAMESTATUS Status;
+
         #region UnityAction Events
         public delegate void OnGDStart();
         public static event OnGDStart OnGameDrinkerStart;
         #endregion
+
         #endregion
 
         #region Class Methods
