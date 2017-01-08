@@ -14,7 +14,7 @@ namespace GameDrinker.Gameplay
         
         protected virtual void Awake()
         {
-            Game = new GDGiveORTake();
+            //Game = new GDGiveORTake();
             //Game.StartGame();
         }
 

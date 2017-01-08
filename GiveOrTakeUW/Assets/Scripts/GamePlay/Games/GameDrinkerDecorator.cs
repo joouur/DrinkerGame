@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using GameDrinker.Tools;
 
 namespace GameDrinker.Gameplay
@@ -8,9 +9,18 @@ namespace GameDrinker.Gameplay
     public abstract class GameDrinkerDecorator : GameDrinkerComponent
     {
         private IGame game;
+        protected GameObject BaseButton = Resources.Load("UI/BaseButton") as GameObject;
+
+        public GameDrinkerDecorator()
+        { return; }
 
         public override void StartGame()
-        { return; }
+        {
+            if(BaseButton == null)
+                    BaseButton = Resources.Load("UI/BaseButton") as GameObject;
+            return;
+        }
+
         public override bool EndGame()
         { return false; }
 

@@ -14,7 +14,7 @@ namespace GameDrinker.Gameplay
         private int Round;
         private Canvas GDGUI;
 
-        private GameObject GOTCanvas;
+        private GameObject GTPanelContainer;
 
         private List<Button> GTButtons;
 
@@ -156,6 +156,12 @@ namespace GameDrinker.Gameplay
         #endregion
 
         #region Decorator Override Functions
+
+        public GDGiveORTake(GameObject PanelButtonContainer)
+        {
+            GTPanelContainer = PanelButtonContainer.GetComponent<GameObject>();
+        }
+
         public override void StartGame()
         {
             base.StartGame();
@@ -165,18 +171,10 @@ namespace GameDrinker.Gameplay
             { throw new Exception("Failed to Load GiveOrTake UI, Please find the new Path or Object's Name"); }
             else
             {
-                GOTCanvas = GameObject.Instantiate(Obj);
-                GDGUI = GOTCanvas.GetComponent<Canvas>();
-                var buttons = GOTCanvas.GetComponentsInChildren(typeof(Button));
-
                 GTButtons = new List<Button>();
-                foreach (Button b in buttons)
-                {
-                    Debug.Log("Added button " + b.name);
-                    GTButtons.Add(b);
-                }
+                AddButton();
                 // TODO: Think method to extract the Methods of gameplay for delegating the User who is playing to the buttons
-                GTButtons[0].onClick.AddListener(delegate { TheD(); });
+                //GTButtons[0].onClick.AddListener(delegate { TheD(); });
 
                 EventSystemManager.TriggerEvent("OnGiveOrTake");
             }
@@ -229,6 +227,14 @@ namespace GameDrinker.Gameplay
             GTButtons[0].onClick.RemoveAllListeners();
             GTButtons[0].onClick.AddListener(delegate { BlackOrRed(false, user); });
 
+        }
+
+        private void AddButton()
+        {
+            GameObject b = (GameObject)MonoBehaviour.Instantiate(BaseButton);
+            //Button b = BaseButton;
+            b.transform.SetParent(GTPanelContainer.transform);
+            GTButtons.Add(b.GetComponent<Button>());
         }
         #endregion
 
