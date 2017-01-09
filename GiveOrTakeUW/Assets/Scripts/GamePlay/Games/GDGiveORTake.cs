@@ -276,15 +276,19 @@ namespace GameDrinker.Gameplay
 
         public override void Game(List<User> users)
         {
-            if (!InBetween(-1, GDManager.Instance.users.Count - 1, userNum))
+            if (GDManager.Instance.users.Count <= userNum)
             {
-                userNum = 0;
                 Round++;
-                Debug.Log("PING");
+                userNum = 0;
+                Debug.Log("PING" + GDManager.Instance.users[userNum].name);
+                PlayTurns(GDManager.Instance.users[0]);
+
             }
             else
-                PlayTurns(GDManager.Instance.users[userNum]);
-
+            {
+                
+                    PlayTurns(GDManager.Instance.users[userNum]);
+            }
         }
 
         public override void PlayTurns(User user)
