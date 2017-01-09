@@ -50,6 +50,8 @@ namespace GameDrinker.Managers
             UserInitializer();
 
             EventSystemManager.StartListening("OnGameStart", OnGameStart);
+            //EventSystemManager.TriggerEvent("OnGameStart");
+
         }
 
         private void OnGameStart()

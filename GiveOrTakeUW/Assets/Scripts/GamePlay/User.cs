@@ -109,12 +109,10 @@ namespace GameDrinker
 
         public GameObject ContentCards;
         #endregion
-
-        #region SpawnProtected
-
-        #endregion
         #endregion
 
+
+        #region User Specific
         public void Init()
         {
             T_Name.text = Name;
@@ -143,7 +141,14 @@ namespace GameDrinker
             s.CheckForCard(newCard);
             Cards.Add(newCard);
         }
+        #endregion
 
-       
+        public void NextUser(User u)
+        {
+            Turn = false;
+            u.Turn = true;
+            Debug.Log(u.name + " is his turn");
+        }
+
     }
 }
