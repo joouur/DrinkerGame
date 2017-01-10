@@ -18,13 +18,16 @@ namespace GameDrinker.Gameplay
         {
             Game = new GDGiveORTake(PanelContainer);
 
-            Game.StartGame();
         }
 
         public void Start()
         {
+
             EventSystemManager.TriggerEvent("OnGameStart");
+            Game.StartGame();
+
         }
+
         protected virtual void Update()
         {
             Game.Game(GDManager.Instance.users);

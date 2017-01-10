@@ -138,7 +138,7 @@ namespace GameDrinker
             GDCard newCard = deck.getNewCard(52);
 
             UICardSpawner s = gameObject.GetComponent<UICardSpawner>();
-            s.CheckForCard(newCard);
+            s.CheckForCard(newCard, Cards.Count + 1);
             Cards.Add(newCard);
         }
         #endregion

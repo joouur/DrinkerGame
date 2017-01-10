@@ -11,8 +11,9 @@ namespace GameDrinker.Gameplay
     public class GDGiveORTake : GameDrinkerDecorator
     {
         #region Data
-        //[Range(0, 4)]
+        [Range(0, 4)]
         private int Round;
+        
         private int userNum;
         private Canvas GDGUI;
 
@@ -44,25 +45,21 @@ namespace GameDrinker.Gameplay
         /// <returns></returns>
         protected virtual bool BlackOrRed(bool choice, User user)
         {
-            Debug.Log("PING" + user.name);
-
             user.AddCard();
-            userNum++;
 
+            userNum++;
+            if (GDManager.Instance.users.Count <= userNum)
+            { userNum = 0; Round++; }
+            AddUserToButton(GDManager.Instance.users[userNum]);
             user.NextUser(GDManager.Instance.users[userNum]);
 
-            Debug.Log(userNum);
             if ((choice && (user.Cards[0].CardColor == GDCARDCOLOR.BLACK))
                 || (!choice && (user.Cards[0].CardColor == GDCARDCOLOR.RED)))
             {
-                AddUserToButton(GDManager.Instance.users[userNum]);
-
                 // Win
                 WinLost(true);
                 return true;
             }
-            AddUserToButton(GDManager.Instance.users[userNum]);
-
             // Lose
             WinLost();
             return false;
@@ -91,12 +88,11 @@ namespace GameDrinker.Gameplay
             int pOne = user.Cards[0].Power;
             int pTwo = user.Cards[1].Power;
 
-            user.NextUser(GDManager.Instance.users[userNum + 1]);
-            AddUserToButton(GDManager.Instance.users[userNum + 1]);
-
             userNum++;
-
-            Debug.Log(userNum);
+            if (GDManager.Instance.users.Count <= userNum)
+            { userNum = 0; Round++; }
+            AddUserToButton(GDManager.Instance.users[userNum]);
+            user.NextUser(GDManager.Instance.users[userNum]);
 
             if ((choice && (pOne < pTwo)) || (!choice && (pOne > pTwo)))
             {
@@ -139,12 +135,12 @@ namespace GameDrinker.Gameplay
             int pTwo = user.Cards[1].Power;
             int pThree = user.Cards[2].Power;
 
-            user.NextUser(GDManager.Instance.users[userNum + 1]);
-            AddUserToButton(GDManager.Instance.users[userNum + 1]);
-
             userNum++;
+            if (GDManager.Instance.users.Count <= userNum)
+            { userNum = 0; Round++; }
+            AddUserToButton(GDManager.Instance.users[userNum]);
+            user.NextUser(GDManager.Instance.users[userNum]);
 
-            Debug.Log(userNum);
             if (pOne < pTwo)
             {
                 if ((choice && InBetween(pOne, pTwo, pThree)) || (!choice && !InBetween(pOne, pTwo, pThree)))
@@ -208,12 +204,15 @@ namespace GameDrinker.Gameplay
         protected virtual bool PickASuit(SUITS choice, User user)
         {
             user.AddCard();
-            user.NextUser(GDManager.Instance.users[userNum + 1]);
-            AddUserToButton(GDManager.Instance.users[userNum + 1]);
 
             userNum++;
 
-            Debug.Log(userNum);
+            if (GDManager.Instance.users.Count <= userNum)
+            { userNum = 0; Round++; }
+            AddUserToButton(GDManager.Instance.users[userNum]);
+            user.NextUser(GDManager.Instance.users[userNum]);
+
+
             SUITS s = user.Cards[3].Suit;
             if (choice == s)
             {
@@ -276,19 +275,10 @@ namespace GameDrinker.Gameplay
 
         public override void Game(List<User> users)
         {
-            if (GDManager.Instance.users.Count <= userNum)
-            {
-                Round++;
-                userNum = 0;
-                Debug.Log("PING" + GDManager.Instance.users[userNum].name);
-                PlayTurns(GDManager.Instance.users[0]);
-
-            }
-            else
-            {
+            
                 
                     PlayTurns(GDManager.Instance.users[userNum]);
-            }
+
         }
 
         public override void PlayTurns(User user)
@@ -353,7 +343,6 @@ namespace GameDrinker.Gameplay
 
         private void AddUserToButton(User user)
         {
-
             GTButtons[0].onClick.RemoveAllListeners();
             GTButtons[1].onClick.RemoveAllListeners();
             GTButtons[2].onClick.RemoveAllListeners();
