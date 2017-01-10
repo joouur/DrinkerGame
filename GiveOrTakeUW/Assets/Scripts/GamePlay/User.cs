@@ -109,12 +109,10 @@ namespace GameDrinker
 
         public GameObject ContentCards;
         #endregion
-
-        #region SpawnProtected
-
-        #endregion
         #endregion
 
+
+        #region User Specific
         public void Init()
         {
             T_Name.text = Name;
@@ -140,10 +138,17 @@ namespace GameDrinker
             GDCard newCard = deck.getNewCard(52);
 
             UICardSpawner s = gameObject.GetComponent<UICardSpawner>();
-            s.CheckForCard(newCard);
+            s.CheckForCard(newCard, Cards.Count + 1);
             Cards.Add(newCard);
         }
+        #endregion
 
-       
+        public void NextUser(User u)
+        {
+            Turn = false;
+            u.Turn = true;
+            Debug.Log(u.name + " is his turn");
+        }
+
     }
 }

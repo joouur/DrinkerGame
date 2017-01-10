@@ -16,7 +16,7 @@ namespace GameDrinker.Tools.Spawn
         [Header("PositionID")]
         public int Position;
 
-        public virtual void CheckForCard(GDCard card)
+        public virtual void CheckForCard(GDCard card, int num)
         {
             GameObject spawnObj = Spawn(Rect.zero);
 
@@ -24,10 +24,10 @@ namespace GameDrinker.Tools.Spawn
             { return; }
             if (spawnObj.GetComponent<PoolableObj>() == null)
             { throw new Exception(gameObject.name + " is trying to spawn object that don't have PoolableObj Component!"); }
-            if (spawnObj.GetComponent<CardUIBehaviour>() == null)
-            { throw new Exception(gameObject.name + " is trying to spawn object that don't have PoolableObj Component!"); }
+            if (spawnObj.GetComponentInChildren<CardUIBehaviour>() == null)
+            { throw new Exception(gameObject.name + " is trying to spawn object that don't have CardUIBehaviour Component!"); }
 
-            spawnObj.GetComponent<CardUIBehaviour>().ChangeSprite(card.FrontSprite);
+            spawnObj.GetComponentInChildren<CardUIBehaviour>().ChangeSprite(card.FrontSprite, num);
         }
 
         protected virtual GameObject Spawn(Rect pos, bool triggerActivation = true)
@@ -75,7 +75,6 @@ namespace GameDrinker.Tools.Spawn
                 { nextObj.GetComponent<PoolableObj>().TriggerOnSpawnComplete(); }
             }
 
-            Debug.Log("Spawn");
             return (nextObj);
         }
     }

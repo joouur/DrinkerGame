@@ -51,11 +51,16 @@ namespace GameDrinker.GentleUI
                     return (a.GetComponent<User>().ID).CompareTo(b.GetComponent<User>().ID);
                 });
             }
+
             Debug.Log(Users.Count);
+
             for (int i = Users.Count; i > 0; i--)
             {
                 Users[i - 1].SetSiblingIndex(i - 1);
             }
+            float Height = 350 * Users.Count;
+            Vector2 newSize = new Vector2(850, Height);
+            gameObject.GetComponent<RectTransform>().sizeDelta = newSize;
         }
 
         

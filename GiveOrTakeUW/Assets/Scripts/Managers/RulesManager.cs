@@ -33,7 +33,19 @@ namespace GameDrinker.Managers
         #region Base Rules Functions
         public void ApplyBaseRules(bool condition)
         {
-            if(condition)
+            if (condition)
+            {
+                WinRule.Rule();
+            }
+            else
+            {
+                LoseRule.Rule();
+            }
+        }
+
+        public void ApplyBaseRules(bool condition, int drinks)
+        {
+            if (condition)
             {
                 WinRule.Rule();
             }

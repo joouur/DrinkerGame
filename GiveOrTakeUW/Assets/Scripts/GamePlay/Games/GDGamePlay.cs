@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 using GameDrinker.Managers;
 
@@ -10,33 +11,30 @@ namespace GameDrinker.Gameplay
     public class GDGamePlay : MonoBehaviour
     {
 
-        GDGiveORTake Game; // = new GDGiveORTake();
-        
+        public GDGiveORTake Game; // = new GDGiveORTake();
+        public RectTransform PanelContainer;
+       
         protected virtual void Awake()
         {
-            Game = new GDGiveORTake();
-            //Game.StartGame();
+            Game = new GDGiveORTake(PanelContainer);
+
         }
 
+        public void Start()
+        {
+
+            EventSystemManager.TriggerEvent("OnGameStart");
+            Game.StartGame();
+
+        }
+
+        protected virtual void Update()
+        {
+            Game.Game(GDManager.Instance.users);
+        }
         #region Canvas Functions
-        
-        public void Choices(bool choice, int index)
-        {
-           
-            Game.BlackOrRed(choice, GDManager.Instance.users[index]);
-        }
 
-        public void Choice(GameObject o)
-        {
 
-        }
-        public void ChoiceBlackOrRed(string s)
-        {
-            bool ch = Convert.ToBoolean((int)Char.GetNumericValue(s[0]));
-            int k = (int)Char.GetNumericValue(s[1]);
-            Game.BlackOrRed(ch, GDManager.Instance.users[k]); 
-        }
-        
         #endregion
 
     }
