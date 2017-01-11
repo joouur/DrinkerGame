@@ -13,7 +13,9 @@ namespace GameDrinker.Managers
 
         private GDRulesDecorator WinRule;
         private GDRulesDecorator LoseRule;
+
         public List<GDRulesDecorator> ActiveRules;
+
         public List<GDRulesDecorator> TotalRules;
 
         protected virtual void Awake()

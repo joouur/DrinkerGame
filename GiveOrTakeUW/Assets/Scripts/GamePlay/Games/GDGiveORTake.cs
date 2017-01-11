@@ -313,7 +313,10 @@ namespace GameDrinker.Gameplay
         #region Helper Functions
         private void WinLost(bool win = false, int drinks = 1)
         {
-            RulesManager.Instance.ApplyBaseRules(win);
+            if (drinks == 1)
+                RulesManager.Instance.ApplyBaseRules(win);
+            else
+                RulesManager.Instance.ApplyBaseRules(win, drinks);
         }
 
         /// <summary>

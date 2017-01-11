@@ -27,7 +27,7 @@ namespace GameDrinker.Tools
         void Display();
         
         void GiveTheDrink(User user);
-        void TakeTheDrink();
+        void TakeTheDrink(User user);
         void RandomUser(List<User> users);
     }
 }

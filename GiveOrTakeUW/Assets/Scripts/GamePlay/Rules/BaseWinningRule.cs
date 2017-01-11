@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameDrinker.Gameplay
 {
-    public class GDRulesDecorator : GDRulesComponent
+    public class BaseWinningRule : GDRulesDecorator
     {
         protected int drink;
 
@@ -21,17 +20,17 @@ namespace GameDrinker.Gameplay
             { drink = value; }
         }
 
-        public GDRulesDecorator()
+        public BaseWinningRule()
         { drink = 1; }
 
-        public GDRulesDecorator(int d)
+        public BaseWinningRule(int d)
         {
             drink = d;
         }
 
         public override bool Rule()
         {
-            if(DrinkingType())
+            if (DrinkingType())
             {
                 //Implementation
                 return true;
@@ -53,23 +52,23 @@ namespace GameDrinker.Gameplay
             return;
         }
 
+        public int DisplayPrompt()
+        {
+            return 0;
+        }
         /// <summary>
         /// Activate when the rule is drinking related
         /// </summary>
         /// <returns></returns>
         public override bool DrinkingType()
-        {
-            return false;
-        }
+        { return true; }
 
         /// <summary>
         /// Activate when the rule is Gametypes related
         /// </summary>
         /// <returns></returns>
         public override bool GameType()
-        {
-            return false;
-        }
+        { return false; }
 
         /// <summary>
         /// Gives a drink to a designated user
@@ -77,6 +76,7 @@ namespace GameDrinker.Gameplay
         /// <param name="user"></param>
         public override void GiveTheDrink(User user)
         {
+            user.UpdateDrinksToTake(1);
             return;
         }
 
@@ -86,6 +86,7 @@ namespace GameDrinker.Gameplay
         /// <param name="users"></param>
         public override void RandomUser(List<User> users)
         {
+            users[UnityEngine.Random.Range(0, users.Count + 1)].UpdateDrinksToTake(1);
             return;
         }
 
