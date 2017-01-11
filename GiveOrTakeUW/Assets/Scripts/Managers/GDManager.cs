@@ -23,6 +23,12 @@ namespace GameDrinker.Managers
 
 
         public List<User> users = new List<User>();
+        private User currentUser;
+        public User CurrentUser
+        {
+            get { return currentUser; }
+        }
+
         public GDDeck CurrentDeck;
 
         public GAMESTATUS Status;
@@ -48,7 +54,7 @@ namespace GameDrinker.Managers
             CurrentDeck = GetComponent<GDDeck>();
             CurrentDeck.Init();
             UserInitializer();
-
+            currentUser = null;
             EventSystemManager.StartListening("OnGameStart", OnGameStart);
             //EventSystemManager.TriggerEvent("OnGameStart");
 
@@ -86,14 +92,17 @@ namespace GameDrinker.Managers
         {
             users.Remove(u);
         }
-        #endregion
 
-        public void Update()
+        public void SetCurrentUser()
         {
-            if(Input.GetKeyDown(KeyCode.T))
+            for(int i = 0; i < users.Count; ++i)
             {
-                EventSystemManager.TriggerEvent("OnGameStart");
+                if (users[i].Turn)
+                    currentUser = users[i];
             }
         }
+        #endregion
+
+       
     }
 }

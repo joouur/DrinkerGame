@@ -316,7 +316,12 @@ namespace GameDrinker.Gameplay
             if (drinks == 1)
                 RulesManager.Instance.ApplyBaseRules(win);
             else
-                RulesManager.Instance.ApplyBaseRules(win, drinks);
+            {
+                for (int i = 0; i < drinks; ++i)
+                {
+                    RulesManager.Instance.ApplyBaseRules(win);
+                }
+            }
         }
 
         /// <summary>

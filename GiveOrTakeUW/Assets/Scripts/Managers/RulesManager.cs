@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GameDrinker.Gameplay;
+using GameDrinker.GentleUI;
 
 namespace GameDrinker.Managers
 {
@@ -18,6 +19,9 @@ namespace GameDrinker.Managers
 
         public List<GDRulesDecorator> TotalRules;
 
+        public GameObject RulesPanel;
+        public RectTransform UserSelector;
+
         protected virtual void Awake()
         {
             if (instance != null)
@@ -30,6 +34,22 @@ namespace GameDrinker.Managers
             {
                 instance = this;
             }
+
+            WinRule = new BaseWinningRule(RulesPanel);
+            LoseRule = new BaseLosingRule();
+
+            if(UserSelector)
+            { UserSelector.GetComponent<SelectorPanel>().AddButtonsToPanel(); }
+        }
+
+        protected virtual void Start()
+        {
+            if (!UserSelector)
+            {
+                UserSelector = GameObject.FindGameObjectWithTag("Selector").GetComponent<RectTransform>(); 
+            }
+            UserSelector.gameObject.SetActive(false);
+
         }
 
         #region Base Rules Functions

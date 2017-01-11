@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using GameDrinker.Managers;
 using GameDrinker.Tools;
 using GameDrinker.Tools.Spawn;
 using GameDrinker.Decks;
-using GameDrinker.GentleUI;
 
 namespace GameDrinker
 {
@@ -122,13 +120,13 @@ namespace GameDrinker
 
         public void UpdateDrinksToGive(int drinks)
         {
-            DrinksToGive = drinks;
+            DrinksToGive += drinks;
             T_DrinksToGive.text = DrinksToGive.ToString();
         }
 
         public void UpdateDrinksToTake(int drinks)
         {
-            DrinksToTake = drinks;
+            DrinksToTake += drinks;
             T_DrinksToTake.text = DrinksToTake.ToString();
         }
 
@@ -145,9 +143,9 @@ namespace GameDrinker
 
         public void NextUser(User u)
         {
+            GDManager.Instance.SetCurrentUser();
             Turn = false;
             u.Turn = true;
-            Debug.Log(u.name + " is his turn");
         }
 
     }
