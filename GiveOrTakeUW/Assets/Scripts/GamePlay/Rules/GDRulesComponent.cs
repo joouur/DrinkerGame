@@ -9,7 +9,7 @@ namespace GameDrinker.Gameplay
     {
         private IRules Rules;
 
-        public abstract int Drinks { get; }
+        public abstract int Drinks { get; set; }
 
         public abstract bool Rule();
 
@@ -19,7 +19,7 @@ namespace GameDrinker.Gameplay
         public abstract void Display();
 
         public abstract void GiveTheDrink(User user);
-        public abstract void TakeTheDrink();
+        public abstract void TakeTheDrink(User user);
         public abstract void RandomUser(List<User> users);
     }
 }

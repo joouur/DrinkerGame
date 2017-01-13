@@ -52,8 +52,6 @@ namespace GameDrinker.GentleUI
                 });
             }
 
-            Debug.Log(Users.Count);
-
             for (int i = Users.Count; i > 0; i--)
             {
                 Users[i - 1].SetSiblingIndex(i - 1);

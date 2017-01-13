@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using GameDrinker.Managers;
+using GameDrinker.Tools;
 
 namespace GameDrinker.Gameplay
 {
-    public class GDRulesDecorator : GDRulesComponent
+    public class BaseLosingRule : GDRulesDecorator
     {
-        protected int drink;
-
         public override int Drinks
         {
             get
@@ -21,19 +21,19 @@ namespace GameDrinker.Gameplay
             { drink = value; }
         }
 
-        public GDRulesDecorator()
+        public BaseLosingRule()
         { drink = 1; }
 
-        public GDRulesDecorator(int d)
+        public BaseLosingRule(int d)
         {
             drink = d;
         }
 
         public override bool Rule()
         {
-            if(DrinkingType())
+            if (DrinkingType())
             {
-                //Implementation
+                TakeTheDrink(GDManager.Instance.CurrentUser);
                 return true;
             }
             else if (GameType())
@@ -50,6 +50,7 @@ namespace GameDrinker.Gameplay
         /// </summary>
         public override void Display()
         {
+            RulesManager.Instance.UserLoser.gameObject.SetActive(true);
             return;
         }
 
@@ -58,18 +59,14 @@ namespace GameDrinker.Gameplay
         /// </summary>
         /// <returns></returns>
         public override bool DrinkingType()
-        {
-            return false;
-        }
+        { Display(); return true; }
 
         /// <summary>
         /// Activate when the rule is Gametypes related
         /// </summary>
         /// <returns></returns>
         public override bool GameType()
-        {
-            return false;
-        }
+        { return false; }
 
         /// <summary>
         /// Gives a drink to a designated user
@@ -94,7 +91,9 @@ namespace GameDrinker.Gameplay
         /// </summary>
         public override void TakeTheDrink(User user)
         {
-            return;
+            RulesManager.Instance.UserLoser.GetComponentInChildren<Text>().text = user.Name + "\nHAS TO DRINK: " + Drinks.ToString();
+            user.UpdateDrinksToTake(Drinks);
+            RulesManager.Instance.CouritineToRun(GDCanvas.TimedPanelSet(RulesManager.Instance.UserLoser, 2.5f));
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GameDrinker.Gameplay;
+using GameDrinker.GentleUI;
 
 namespace GameDrinker.Managers
 {
@@ -13,8 +14,15 @@ namespace GameDrinker.Managers
 
         private GDRulesDecorator WinRule;
         private GDRulesDecorator LoseRule;
+
         public List<GDRulesDecorator> ActiveRules;
+
         public List<GDRulesDecorator> TotalRules;
+
+        public GameObject RulesPanel;
+
+        public RectTransform UserSelector;
+        public RectTransform UserLoser;
 
         protected virtual void Awake()
         {
@@ -28,6 +36,24 @@ namespace GameDrinker.Managers
             {
                 instance = this;
             }
+
+            WinRule = new BaseWinningRule(RulesPanel);
+            LoseRule = new BaseLosingRule();
+
+            if (UserSelector)
+            { UserSelector.GetComponent<SelectorPanel>().AddButtonsToPanel(); }
+
+
+        }
+
+        protected virtual void Start()
+        {
+            if (!UserSelector)
+            {
+                UserSelector = GameObject.FindGameObjectWithTag("Selector").GetComponent<RectTransform>(); 
+            }
+            UserSelector.gameObject.SetActive(false);
+
         }
 
         #region Base Rules Functions
@@ -47,10 +73,12 @@ namespace GameDrinker.Managers
         {
             if (condition)
             {
+                WinRule.Drinks = drinks;
                 WinRule.Rule();
             }
             else
             {
+                LoseRule.Drinks = drinks;
                 LoseRule.Rule();
             }
         }
@@ -103,6 +131,15 @@ namespace GameDrinker.Managers
             ruleToApply.Rule();
         }
 
+        public void CouritineToRun(IEnumerator cor)
+        {
+            StartCoroutine(cor);
+        }
+
+        public void DisableLoserPanel()
+        {
+            UserLoser.gameObject.SetActive(false);
+        }
         #endregion
 
 
