@@ -131,6 +131,15 @@ namespace GameDrinker.Managers
             ruleToApply.Rule();
         }
 
+        public void CouritineToRun(IEnumerator cor)
+        {
+            StartCoroutine(cor);
+        }
+
+        public void DisableLoserPanel()
+        {
+            UserLoser.gameObject.SetActive(false);
+        }
         #endregion
 
 

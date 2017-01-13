@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using GameDrinker.Managers;
+using GameDrinker.Tools;
 
 namespace GameDrinker.Gameplay
 {
@@ -91,6 +93,7 @@ namespace GameDrinker.Gameplay
         {
             RulesManager.Instance.UserLoser.GetComponentInChildren<Text>().text = user.Name + "\nHAS TO DRINK: " + Drinks.ToString();
             user.UpdateDrinksToTake(Drinks);
+            RulesManager.Instance.CouritineToRun(GDCanvas.TimedPanelSet(RulesManager.Instance.UserLoser, 2.5f));
         }
     }
 }

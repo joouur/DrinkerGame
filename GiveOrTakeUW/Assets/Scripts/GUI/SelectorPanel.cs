@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using GameDrinker.Managers;
+using GameDrinker.Tools;
 
 namespace GameDrinker.GentleUI
 {
@@ -54,8 +55,14 @@ namespace GameDrinker.GentleUI
             u.UpdateDrinksToTake(1);
             drinks--;
             Drinks = drinks;
-            if(drinks == 0)
+            RulesManager.Instance.UserLoser.gameObject.SetActive(true);
+            RulesManager.Instance.UserLoser.GetComponentInChildren<Text>().text = u.name + "\n DRINKS!";
+            RulesManager.Instance.CouritineToRun(GDCanvas.TimedPanelSet(RulesManager.Instance.UserLoser, 2.5f));
+            if (drinks == 0)
+            {
                 this.gameObject.SetActive(false);
+            }
+
         }
 
        

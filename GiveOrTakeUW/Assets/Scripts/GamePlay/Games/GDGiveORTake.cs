@@ -313,6 +313,8 @@ namespace GameDrinker.Gameplay
         #region Helper Functions
         private void WinLost(bool win = false, int drinks = 1)
         {
+            if(win)
+            { GDManager.Instance.CurrentUser.UpdateDrinksToGive(drinks); }
             if (drinks == 1)
                 RulesManager.Instance.ApplyBaseRules(win);
             else
