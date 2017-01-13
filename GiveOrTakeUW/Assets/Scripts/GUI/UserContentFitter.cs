@@ -59,6 +59,8 @@ namespace GameDrinker.GentleUI
             float Height = 350 * Users.Count;
             Vector2 newSize = new Vector2(850, Height);
             gameObject.GetComponent<RectTransform>().sizeDelta = newSize;
+
+            gameObject.GetComponentInParent<AutoScrollRect>().verticalNormalizedPosition = 1;
         }
 
         
