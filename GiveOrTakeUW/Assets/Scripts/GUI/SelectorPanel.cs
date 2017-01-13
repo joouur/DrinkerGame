@@ -62,9 +62,7 @@ namespace GameDrinker.GentleUI
             {
                 this.gameObject.SetActive(false);
             }
-
+        
         }
-
-       
     }
 }
