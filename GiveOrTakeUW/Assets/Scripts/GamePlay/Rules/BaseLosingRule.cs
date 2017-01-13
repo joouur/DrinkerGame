@@ -1,14 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.UI;
 using GameDrinker.Managers;
 
 namespace GameDrinker.Gameplay
 {
     public class BaseLosingRule : GDRulesDecorator
     {
-        protected int drink;
-
         public override int Drinks
         {
             get
@@ -50,19 +48,16 @@ namespace GameDrinker.Gameplay
         /// </summary>
         public override void Display()
         {
+            RulesManager.Instance.UserLoser.gameObject.SetActive(true);
             return;
         }
 
-        public int DisplayPrompt()
-        {
-            return 0;
-        }
         /// <summary>
         /// Activate when the rule is drinking related
         /// </summary>
         /// <returns></returns>
         public override bool DrinkingType()
-        { return true; }
+        { Display(); return true; }
 
         /// <summary>
         /// Activate when the rule is Gametypes related
@@ -94,7 +89,8 @@ namespace GameDrinker.Gameplay
         /// </summary>
         public override void TakeTheDrink(User user)
         {
-            user.UpdateDrinksToTake(1);
+            RulesManager.Instance.UserLoser.GetComponentInChildren<Text>().text = user.Name + "\nHAS TO DRINK: " + Drinks.ToString();
+            user.UpdateDrinksToTake(Drinks);
         }
     }
 }

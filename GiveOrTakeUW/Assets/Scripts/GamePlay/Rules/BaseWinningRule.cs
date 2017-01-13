@@ -116,8 +116,9 @@ namespace GameDrinker.Gameplay
         /// <param name="users"></param>
         public override void RandomUser(List<User> users)
         {
-            users[UnityEngine.Random.Range(0, users.Count + 1)].UpdateDrinksToTake(1);
-            return;
+            int i = UnityEngine.Random.Range(0, users.Count);
+            users[i].UpdateDrinksToTake(1);
+            Panel.gameObject.SetActive(false);
         }
 
         /// <summary>
@@ -132,7 +133,7 @@ namespace GameDrinker.Gameplay
         {
             Panel.gameObject.SetActive(false);
             RulesManager.Instance.UserSelector.gameObject.SetActive(true);
-            RulesManager.Instance.UserSelector.GetComponent<SelectorPanel>().Drinks = 1;
+            RulesManager.Instance.UserSelector.GetComponent<SelectorPanel>().Drinks = Drinks;
         }
 
         private void AddButton()

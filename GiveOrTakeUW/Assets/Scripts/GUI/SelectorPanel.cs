@@ -24,7 +24,8 @@ namespace GameDrinker.GentleUI
 
         public void AddButtonsToPanel()
         {
-            for(int i = 0; i < GDManager.Instance.users.Count; ++i)
+            this.gameObject.SetActive(true);
+            for (int i = 0; i < GDManager.Instance.users.Count; ++i)
             {
                 AddButton(GDManager.Instance.users[i]);
             }
@@ -52,8 +53,11 @@ namespace GameDrinker.GentleUI
         {
             u.UpdateDrinksToTake(1);
             drinks--;
+            Drinks = drinks;
             if(drinks == 0)
                 this.gameObject.SetActive(false);
         }
+
+       
     }
 }

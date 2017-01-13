@@ -317,10 +317,7 @@ namespace GameDrinker.Gameplay
                 RulesManager.Instance.ApplyBaseRules(win);
             else
             {
-                for (int i = 0; i < drinks; ++i)
-                {
-                    RulesManager.Instance.ApplyBaseRules(win);
-                }
+                RulesManager.Instance.ApplyBaseRules(win, drinks);
             }
         }
 

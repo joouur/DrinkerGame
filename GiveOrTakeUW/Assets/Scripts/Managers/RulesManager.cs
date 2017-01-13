@@ -20,7 +20,9 @@ namespace GameDrinker.Managers
         public List<GDRulesDecorator> TotalRules;
 
         public GameObject RulesPanel;
+
         public RectTransform UserSelector;
+        public RectTransform UserLoser;
 
         protected virtual void Awake()
         {
@@ -38,8 +40,10 @@ namespace GameDrinker.Managers
             WinRule = new BaseWinningRule(RulesPanel);
             LoseRule = new BaseLosingRule();
 
-            if(UserSelector)
+            if (UserSelector)
             { UserSelector.GetComponent<SelectorPanel>().AddButtonsToPanel(); }
+
+
         }
 
         protected virtual void Start()
@@ -69,10 +73,12 @@ namespace GameDrinker.Managers
         {
             if (condition)
             {
+                WinRule.Drinks = drinks;
                 WinRule.Rule();
             }
             else
             {
+                LoseRule.Drinks = drinks;
                 LoseRule.Rule();
             }
         }

@@ -78,7 +78,6 @@ namespace GameDrinker.Decks
             // Set Card to Use
             DeckPile[num].IsOnUse = true;
             GDCard newCard = DeckPile[num];
-            Debug.Log("New Card " + num);
 
             // Return the card to user
             return newCard; 

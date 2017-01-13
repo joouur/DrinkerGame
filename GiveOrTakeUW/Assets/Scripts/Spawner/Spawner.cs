@@ -59,6 +59,8 @@ namespace GameDrinker.Tools.Spawn
             else
             { newScale = Vector3.one * UnityEngine.Random.Range(minSize.x, maxSize.x); }
 
+            nextObj.transform.localScale = newScale;
+
             nextObj.transform.position = pos;
 
             nextObj.transform.eulerAngles = new Vector3(UnityEngine.Random.Range(minRotation.x, maxRotation.x),

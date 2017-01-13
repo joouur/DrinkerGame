@@ -13,11 +13,10 @@ namespace GameDrinker.Gameplay
 
         public GDGiveORTake Game; // = new GDGiveORTake();
         public RectTransform PanelContainer;
-       
+
         protected virtual void Awake()
         {
             Game = new GDGiveORTake(PanelContainer);
-
         }
 
         public void Start()
