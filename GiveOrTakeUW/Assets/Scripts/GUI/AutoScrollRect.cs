@@ -22,6 +22,11 @@ namespace GameDrinker.GentleUI
         private int itemCount = 0;
         private float recordOffsetY = 0;
 
+        public Vector2 currentUserPosition;
+
+        private bool isMoving = false;
+        public float moveDuration = 1.25f;
+
         protected override void Start()
         {
             base.Start();
@@ -37,16 +42,6 @@ namespace GameDrinker.GentleUI
             verticalLayoutGroup = content.GetComponent<VerticalLayoutGroup>();
 
             itemCount = this.content.childCount;
-        }
-
-        public void Update()
-        {
-            if(Input.GetKeyDown(KeyCode.T))
-            {
-                Debug.Log(verticalNormalizedPosition);
-                verticalNormalizedPosition -= 0.5f;
-            }
-            verticalNormalizedPosition -= 0.01f;
         }
 
         private void DisableGridComponents()
@@ -85,7 +80,29 @@ namespace GameDrinker.GentleUI
                     this.content.GetChild(0).transform.SetAsLastSibling();
                 }
             }
-            
+        }
+
+        public IEnumerator MoveToNextUser()
+        {
+            float elapsedTime = 0.0f;
+            Vector3 initPos = content.localPosition;
+            isMoving = true;
+
+            Vector3 newPos = currentUserPosition;
+            newPos.y += 350;
+
+            float SqrRemDistanceMag = (content.localPosition - newPos).sqrMagnitude;
+
+            while(SqrRemDistanceMag > float.Epsilon)
+            {
+                elapsedTime += Time.deltaTime;
+
+                content.localPosition = Vector2.Lerp(initPos, newPos, elapsedTime / moveDuration);
+                SqrRemDistanceMag = (content.localPosition - newPos).sqrMagnitude;
+                yield return null;
+            }
+            currentUserPosition = content.localPosition;
+            isMoving = false;
         }
     }
 }

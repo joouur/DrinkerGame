@@ -5,6 +5,7 @@ using GameDrinker.Managers;
 using GameDrinker.Tools;
 using GameDrinker.Tools.Spawn;
 using GameDrinker.Decks;
+using GameDrinker.GentleUI;
 
 namespace GameDrinker
 {
@@ -146,6 +147,7 @@ namespace GameDrinker
             GDManager.Instance.SetCurrentUser();
             Turn = false;
             u.Turn = true;
+            StartCoroutine(GetComponentInParent<AutoScrollRect>().MoveToNextUser());
         }
 
     }

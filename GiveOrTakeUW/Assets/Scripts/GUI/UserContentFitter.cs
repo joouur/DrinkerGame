@@ -61,8 +61,9 @@ namespace GameDrinker.GentleUI
             gameObject.GetComponent<RectTransform>().sizeDelta = newSize;
 
             gameObject.GetComponentInParent<AutoScrollRect>().verticalNormalizedPosition = 1;
+            gameObject.GetComponentInParent<AutoScrollRect>().currentUserPosition = this.transform.localPosition;
         }
 
-        
+
     }
 }
