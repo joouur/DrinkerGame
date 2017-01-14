@@ -41,7 +41,7 @@ namespace GameDrinker
         public string Name
         {
             get { return _name; }
-            set { _name = value; }
+            set { _name = value.Replace("_", " "); }
         }
 
         [SerializeField]
@@ -105,6 +105,7 @@ namespace GameDrinker
         public Text T_Name;
         public Text T_DrinksToGive;
         public Text T_DrinksToTake;
+        public Image T_Icon;
 
         public GameObject ContentCards;
         #endregion
@@ -140,13 +141,25 @@ namespace GameDrinker
             s.CheckForCard(newCard, Cards.Count + 1);
             Cards.Add(newCard);
         }
+
+        public bool ChangeTheColor(User u)
+        {
+            if (u.Turn)
+            {
+                this.T_Name.color = Color.black;
+                return true;
+            }
+            return false;
+        }
         #endregion
 
         public void NextUser(User u)
         {
-            GDManager.Instance.SetCurrentUser();
             Turn = false;
             u.Turn = true;
+            if (ChangeTheColor(u))
+            { GDManager.Instance.SetCurrentUser(u); }
+
             StartCoroutine(GetComponentInParent<AutoScrollRect>().MoveToNextUser());
         }
 

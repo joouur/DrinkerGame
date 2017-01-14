@@ -6,7 +6,8 @@ using GameDrinker;
 namespace GameDrinker.Tools
 {
     public interface IGame
-    {         
+    {   
+        int Round { get; set; }      
         void Game(List<User> users);
         void StartGame();
         bool EndGame();
@@ -17,7 +18,7 @@ namespace GameDrinker.Tools
     public interface IRules
     {
 
-        int Drinks { get; }
+        int Drinks { get; set; }
 
         bool Rule();
 
