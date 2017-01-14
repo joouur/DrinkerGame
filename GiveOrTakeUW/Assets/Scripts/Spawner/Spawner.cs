@@ -6,7 +6,7 @@ using GameDrinker.Tools.ObjectPooler;
 
 namespace GameDrinker.Tools.Spawn
 {
-    //[RequireComponent(typeof(ObjectPool))]
+    [RequireComponent(typeof(ObjectPool))]
     public class Spawner : MonoBehaviour
     {
         [Header("Size")]

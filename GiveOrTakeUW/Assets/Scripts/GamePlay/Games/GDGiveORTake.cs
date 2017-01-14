@@ -12,8 +12,9 @@ namespace GameDrinker.Gameplay
     {
         #region Data
         [Range(0, 4)]
-        private int Round;
-        
+        public int Round;
+        private int PreviousRound;
+
         private int userNum;
         private Canvas GDGUI;
 
@@ -275,10 +276,7 @@ namespace GameDrinker.Gameplay
 
         public override void Game(List<User> users)
         {
-            
-                
-                    PlayTurns(GDManager.Instance.users[userNum]);
-
+            PlayTurns(GDManager.Instance.users[userNum]);
         }
 
         public override void PlayTurns(User user)

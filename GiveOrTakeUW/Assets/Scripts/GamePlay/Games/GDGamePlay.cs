@@ -31,6 +31,7 @@ namespace GameDrinker.Gameplay
         {
             Game.Game(GDManager.Instance.users);
         }
+
         #region Canvas Functions
 
 

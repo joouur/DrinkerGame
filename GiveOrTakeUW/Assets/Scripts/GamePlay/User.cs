@@ -133,8 +133,8 @@ namespace GameDrinker
 
         public void AddCard()
         {
-            GDDeck deck = FindObjectOfType<GDDeck>();
-            GDCard newCard = deck.getNewCard(52);
+            //GDDeck deck = FindObjectOfType<GDDeck>();
+            GDCard newCard = GDManager.Instance.CurrentDeck.getNewCard(52);
 
             UICardSpawner s = gameObject.GetComponent<UICardSpawner>();
             s.CheckForCard(newCard, Cards.Count + 1);

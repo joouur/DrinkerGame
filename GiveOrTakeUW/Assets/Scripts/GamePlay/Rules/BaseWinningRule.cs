@@ -119,6 +119,8 @@ namespace GameDrinker.Gameplay
             int i = UnityEngine.Random.Range(0, users.Count);
             users[i].UpdateDrinksToTake(1);
             Panel.gameObject.SetActive(false);
+            RulesManager.Instance.UserLoser.gameObject.SetActive(true);
+            RulesManager.Instance.UserLoser.GetComponentInChildren<Text>().text = users[i].name + "\n DRINKS!";
         }
 
         /// <summary>

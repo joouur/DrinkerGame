@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GameDrinker.Tools;
 using GameDrinker.Tools.ObjectPooler;
+using GameDrinker.Tools.Spawn;
 
 namespace GameDrinker.Decks 
 {
@@ -13,6 +14,8 @@ namespace GameDrinker.Decks
         public List<GDCard> DeckPile = new List<GDCard>();
 
         public CardPool pool;
+        public CardSpawner spawn;
+
         /// <summary>
         /// Deck Initializer
         /// Sets 13 Card on 4 Suits
@@ -21,6 +24,7 @@ namespace GameDrinker.Decks
         {
             int id = 1;
             pool = GetComponentInChildren<CardPool>();
+            spawn = GetComponentInChildren<CardSpawner>();
 
             Sprite[] sprites = Resources.LoadAll<Sprite>("Textures/card_list");
 
@@ -78,7 +82,7 @@ namespace GameDrinker.Decks
             // Set Card to Use
             DeckPile[num].IsOnUse = true;
             GDCard newCard = DeckPile[num];
-
+            spawn.CheckSpawn(newCard.Suit.ToString() + newCard.Power.ToString());
             // Return the card to user
             return newCard; 
         }
