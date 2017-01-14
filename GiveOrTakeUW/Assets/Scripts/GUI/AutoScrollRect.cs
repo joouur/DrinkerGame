@@ -24,7 +24,6 @@ namespace GameDrinker.GentleUI
 
         public Vector2 currentUserPosition;
 
-        private bool isMoving = false;
         public float moveDuration = 1.25f;
 
         protected override void Start()
@@ -86,7 +85,6 @@ namespace GameDrinker.GentleUI
         {
             float elapsedTime = 0.0f;
             Vector3 initPos = content.localPosition;
-            isMoving = true;
 
             Vector3 newPos = currentUserPosition;
             newPos.y += 350;
@@ -102,7 +100,6 @@ namespace GameDrinker.GentleUI
                 yield return null;
             }
             currentUserPosition = content.localPosition;
-            isMoving = false;
         }
     }
 }

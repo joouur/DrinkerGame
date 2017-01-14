@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System;
 
 namespace GameDrinker.Tools
 {
@@ -29,24 +29,40 @@ namespace GameDrinker.Tools
     {
         SPADES = 1,
         DIAMONDS = 2,
-        HEARTS = 3,
-        CLUBS = 4
+        HEARTS = 4,
+        CLUBS = 8
+    }
+
+    [Flags]
+    public enum SUITSFLAGS
+    {
+        SPADES = 1,
+        DIAMONDS = 2,
+        HEARTS = 4,
+        CLUBS = 8
     }
 
     public enum COLORS
     {
         RED,
-        BLUE,
-        GREEN,
-        YELLOW,
-        ORANGE,
-        PURPLE,
         PINK,
+        PURPLE,
+        INDIGO,
+        BLUE,
+        CYAN,
+        TEAL,
+        GREEN,
+        LIME,
+        YELLOW,
+        AMBER,
+        ORANGE,
         BROWN,
-        GRAY,
-        WHITE,
-        BLACK,
-        CYAN
+        GREY,
+        LIGHT_BLUE,
+        LIGHT_GREEN,
+        DEEP_ORANGE,
+        DEEP_PURPLE,
+        BLUE_GREY
     }
 
     public enum GDCARDCOLOR

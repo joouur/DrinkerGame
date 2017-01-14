@@ -9,6 +9,7 @@ namespace GameDrinker.Gameplay
     {
         private IGame game;
 
+        public abstract int Round { get; set; }
         public abstract void StartGame();
         public abstract bool EndGame();
 

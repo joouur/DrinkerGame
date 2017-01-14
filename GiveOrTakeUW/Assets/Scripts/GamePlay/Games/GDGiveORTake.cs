@@ -11,9 +11,10 @@ namespace GameDrinker.Gameplay
     public class GDGiveORTake : GameDrinkerDecorator
     {
         #region Data
-        [Range(0, 4)]
-        private int Round;
-        
+        private int round;
+        public override int Round
+        { get { return round; } set { round = value; } }
+
         private int userNum;
         private Canvas GDGUI;
 
@@ -46,12 +47,6 @@ namespace GameDrinker.Gameplay
         protected virtual bool BlackOrRed(bool choice, User user)
         {
             user.AddCard();
-
-            userNum++;
-            if (GDManager.Instance.users.Count <= userNum)
-            { userNum = 0; Round++; }
-            AddUserToButton(GDManager.Instance.users[userNum]);
-            user.NextUser(GDManager.Instance.users[userNum]);
 
             if ((choice && (user.Cards[0].CardColor == GDCARDCOLOR.BLACK))
                 || (!choice && (user.Cards[0].CardColor == GDCARDCOLOR.RED)))
@@ -87,12 +82,6 @@ namespace GameDrinker.Gameplay
 
             int pOne = user.Cards[0].Power;
             int pTwo = user.Cards[1].Power;
-
-            userNum++;
-            if (GDManager.Instance.users.Count <= userNum)
-            { userNum = 0; Round++; }
-            AddUserToButton(GDManager.Instance.users[userNum]);
-            user.NextUser(GDManager.Instance.users[userNum]);
 
             if ((choice && (pOne < pTwo)) || (!choice && (pOne > pTwo)))
             {
@@ -135,12 +124,6 @@ namespace GameDrinker.Gameplay
             int pTwo = user.Cards[1].Power;
             int pThree = user.Cards[2].Power;
 
-            userNum++;
-            if (GDManager.Instance.users.Count <= userNum)
-            { userNum = 0; Round++; }
-            AddUserToButton(GDManager.Instance.users[userNum]);
-            user.NextUser(GDManager.Instance.users[userNum]);
-
             if (pOne < pTwo)
             {
                 if ((choice && InBetween(pOne, pTwo, pThree)) || (!choice && !InBetween(pOne, pTwo, pThree)))
@@ -174,7 +157,7 @@ namespace GameDrinker.Gameplay
             else if (pOne == pThree || pTwo == pThree)
             {
                 // Lose 2X
-                WinLost(false, 3);
+                WinLost(false, 6);
                 return false;
             }
 
@@ -204,14 +187,6 @@ namespace GameDrinker.Gameplay
         protected virtual bool PickASuit(SUITS choice, User user)
         {
             user.AddCard();
-
-            userNum++;
-
-            if (GDManager.Instance.users.Count <= userNum)
-            { userNum = 0; Round++; }
-            AddUserToButton(GDManager.Instance.users[userNum]);
-            user.NextUser(GDManager.Instance.users[userNum]);
-
 
             SUITS s = user.Cards[3].Suit;
             if (choice == s)
@@ -254,14 +229,16 @@ namespace GameDrinker.Gameplay
             { throw new Exception("Failed to Load GiveOrTake UI, Please find the new Path or Object's Name"); }
             else
             {
+                GDManager.Instance.users[0].Turn = true;
+                GDManager.Instance.SetCurrentUser(GDManager.Instance.users[0]);
                 GTButtons = new List<Button>();
                 for (int i = 0; i < 10; ++i)
                 {
                     AddButton();
                 }
                 // TODO: Think method to extract the Methods of gameplay for delegating the User who is playing to the buttons
-                AddUserToButton(GDManager.Instance.users[0]);
-                GDManager.Instance.users[0].Turn = true;
+
+                AddUserToButton(GDManager.Instance.CurrentUser);
 
                 EventSystemManager.TriggerEvent("OnGiveOrTake");
             }
@@ -275,10 +252,7 @@ namespace GameDrinker.Gameplay
 
         public override void Game(List<User> users)
         {
-            
-                
-                    PlayTurns(GDManager.Instance.users[userNum]);
-
+            PlayTurns(GDManager.Instance.users[userNum]);
         }
 
         public override void PlayTurns(User user)
@@ -321,6 +295,12 @@ namespace GameDrinker.Gameplay
             {
                 RulesManager.Instance.ApplyBaseRules(win, drinks);
             }
+            userNum++;
+            if (GDManager.Instance.users.Count <= userNum)
+            { userNum = 0; Round++; }
+
+            GDManager.Instance.CurrentUser.NextUser(GDManager.Instance.users[userNum]);
+            AddUserToButton(GDManager.Instance.users[userNum]);
         }
 
         /// <summary>
@@ -398,6 +378,8 @@ namespace GameDrinker.Gameplay
             GTButtons[9].gameObject.GetComponentInChildren<Text>().text = "Clubs";
             GTButtons[9].onClick.AddListener(delegate { PickASuit(SUITS.CLUBS, user); });
             //Pick A Suit
+
+            EventSystemManager.TriggerEvent("OnTransition");
         }
         #endregion
 
