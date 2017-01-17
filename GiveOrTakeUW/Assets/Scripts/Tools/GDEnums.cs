@@ -87,5 +87,13 @@ namespace GameDrinker.Tools
         TAKE
     }
 
-    
+    public enum GDWindows
+    {
+        None,
+        Start,
+        GameOver,
+        Keyboard,
+        SelectGame,
+        Options
+    }
 }
