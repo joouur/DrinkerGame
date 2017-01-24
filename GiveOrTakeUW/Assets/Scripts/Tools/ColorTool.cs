@@ -65,6 +65,7 @@ namespace ColorAsset
         public bool AddBaseColors = true;
 
         public HashSet<Colors> colorPickerHash = new HashSet<Colors>();
+        [SerializeField]
         public List<Colors> colorPicker = new List<Colors>();
 
         public ColorTool()

@@ -8,13 +8,16 @@ using GameDrinker.Managers;
 
 namespace GameDrinker.Gameplay
 {
+    [Serializable]
     public class GDGiveORTake : GameDrinkerDecorator
     {
         #region Data
+        [SerializeField]
         private int round;
         public override int Round
         { get { return round; } set { round = value; } }
 
+        public GDGIVEORTAKE CurrentRound;
         private int userNum;
         private Canvas GDGUI;
 

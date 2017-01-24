@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using GameDrinker.Managers;
+using GameDrinker.Tools;
 
 namespace GameDrinker.Gameplay
 {
@@ -13,6 +14,9 @@ namespace GameDrinker.Gameplay
 
         public GDGiveORTake Game; // = new GDGiveORTake();
         public RectTransform PanelContainer;
+
+        [HideInInspector]
+        public GDModes GameMode;
 
         protected virtual void Awake()
         {
