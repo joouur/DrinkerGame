@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: be1361f834ac71c47aedcd3d4680e6f4
-timeCreated: 1485217721
+timeCreated: 1485467411
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -46,6 +46,14 @@ TextureImporter:
     21300078: Banner_03
     21300080: UIObjects_0
     21300082: UIObjects_1
+    21300084: UIObjects_2
+    21300086: UIObjects_3
+    21300088: UIObjects_4
+    21300090: UIObjects_5
+    21300092: UIObjects_6
+    21300094: UIObjects_7
+    21300096: UIObjects_8
+    21300098: UIObjects_9
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -708,6 +716,110 @@ TextureImporter:
         y: 864
         width: 211
         height: 210
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 20, y: 40, z: 20, w: 40}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: UIObjects_2
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 864
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 20, y: 40, z: 20, w: 40}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: UIObjects_3
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 864
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 20, y: 40, z: 20, w: 40}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: UIObjects_4
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 864
+        width: 208
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 20, y: 40, z: 20, w: 40}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: UIObjects_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1091
+        width: 214
+        height: 213
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 20, y: 40, z: 20, w: 40}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: UIObjects_6
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 1091
+        width: 214
+        height: 213
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 20, y: 40, z: 20, w: 40}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: UIObjects_7
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 1091
+        width: 214
+        height: 213
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 20, y: 40, z: 20, w: 40}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: UIObjects_8
+      rect:
+        serializedVersion: 2
+        x: 670
+        y: 1091
+        width: 213
+        height: 213
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 20, y: 40, z: 20, w: 40}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: UIObjects_9
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 1091
+        width: 212
+        height: 213
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 20, y: 40, z: 20, w: 40}
