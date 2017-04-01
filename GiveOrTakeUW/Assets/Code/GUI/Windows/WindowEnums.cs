@@ -1,0 +1,1 @@
+public enum GDWindows{None,StartWindow,SelectionWindow,AddPlayerWindow,GameOverWindow,SelectUserWindow,GameWindow}
